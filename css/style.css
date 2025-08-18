@@ -1,0 +1,20 @@
+        body {
+            font-family: Roboto;
+            background-color: #271f1f;
+        }
+        nav {
+            background-color: #a92020;
+        }
+        .header, b, a {
+            color: #ff4040;
+        }
+        h1, h2, h3, h4, h5, h6, p {
+            color: #f1f1f1;
+        }
+        .link {
+            text-decoration: underline white;
+        }
+        p {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }

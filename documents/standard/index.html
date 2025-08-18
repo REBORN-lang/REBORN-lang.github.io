@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+    Simple stylized Markdown renderer for documents
+    jstmax@62-69-74-2E-6C-79-2F-6D-78-5F-69-6E-66-6F
+
+    Credits:
+    - Marked
+    - GitHub-Markdown (CSS Library)
+-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Reborn Standard 25004</title> <!-- Set the webpage's title (!) -->
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- GitHub Markdown CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css">
+  <style>
+    :root {
+      --accent-red: #d9534f; 
+      --accent-red-hover: #e06666;
+      --accent-red-strong: #c94c4c;
+      --accent-red-bg: #3a2a2a; /* darker code background */
+      --bg-dark: #1e1e1e; /* page background */
+      --bg-container: #2a2a2a; /* content container background */
+      --text-light: #e6e6e6; /* normal text */
+      --text-dim: #bdbdbd; /* secondary text */
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+      background: var(--bg-dark);
+      font-family: system-ui, sans-serif;
+      color: var(--text-light);
+    }
+    .markdown-body {
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem;
+      background: var(--bg-container);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      color: var(--text-light);
+    }
+
+    /* Red accents */
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4,
+    .markdown-body h5,
+    .markdown-body h6 {
+      color: var(--accent-red);
+    }
+
+    .markdown-body a {
+      color: var(--accent-red);
+      text-decoration: none;
+    }
+
+    .markdown-body a:hover {
+      text-decoration: underline;
+      color: var(--accent-red-hover);
+    }
+
+    .markdown-body strong {
+      color: var(--accent-red-strong);
+    }
+
+    .markdown-body blockquote {
+      border-left: 4px solid var(--accent-red);
+      color: var(--text-dim);
+      padding-left: 1em;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .markdown-body code {
+      background-color: var(--accent-red-bg);
+      color: var(--accent-red-hover);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 90%;
+    }
+
+    .markdown-body pre code {
+      background-color: var(--accent-red-bg);
+      display: block;
+      padding: 1em;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div id="content" class="markdown-body"></div>
+
+  <script>
+    fetch('RebornStandard.md') // Change the path for your file (!)
+      .then(response => response.text())
+      .then(markdown => {
+        const html = marked.parse(markdown);
+        document.getElementById('content').innerHTML = html;
+      })
+      .catch(error => console.error('Error fetching Markdown:', error));
+  </script>
+</body>
+</html>
