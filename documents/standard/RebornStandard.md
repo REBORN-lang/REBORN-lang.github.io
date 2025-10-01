@@ -1,5 +1,5 @@
 # REBORN Standard (RS)
-### Version 25004
+### Version 25005
 
 ## Purpose
 The **REBORN Standard** exists to define how **REBORN** source code **must** be written and interpreted. \
@@ -37,9 +37,39 @@ main() {
 - All variables must be declared before use.
 - Supported types: `int`, `float`, `char`, `bool`, `string`, `let` (_inferred_).
 - `let` must be assigned at declaration and must never hold array literals. (_\*Note5_)
-- Constants use the syntax:
+- To declare a variable as constant add the `const` keyword at the beginning of the declaration.
+
+## R4.1 Variable Declaration Syntax
+A variable declaration must follow exactly one of these forms:
+- Type inferred declaration
+    `let identifier := expression;`
+    Example:
+    `let number := 10;`
+    Formatting rules:
+     - One space required between `let` and identifier.
+     - One space required between identifier and `:=`.
+     - One space required between `:=` and the expression.
+
+- Explicitly typed declaration
+    `let identifier: type = expression;`
+    Example:
+    `let number: int = 10;`
+    Formatting rules:
+     - One space required between `let` and identifier.
+     - **no space** allowed before the colon (i.e. identifier immediately followed by `:`).
+     - Exactly one space **may** follow the colon before the type (recommended).
+     - Single space required around the `=` (i.e. `type = expression`).
+
+- Constant variable declaration
+    `const let identifier := expression;`
+    or..
+    `const let identifier: type = expression;`
+
+- Examples of invalid declarations (must be rejected by compiler):
 ```
-const type var = data;
+let z = 99;         // missing ':=' or ': type ='
+let a : int = 5;    // illegal space before colon
+let b: = 6;         // missing type
 ```
 
 # R5. Arrays
