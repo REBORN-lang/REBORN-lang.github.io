@@ -1,5 +1,5 @@
 # REBORN Standard (RS)
-### Version 25006
+### Revision 25006
 
 ## Purpose
 The **REBORN Standard** exists to define how **REBORN** source code **must** be written and interpreted. \
