@@ -52,10 +52,12 @@ Formatting **rules** and Styling _recommendations_:
 - Entry point does not require a declared `return` type. \
 Example:
 ```
-main() {
+// Implicitly of type void
+main := () {
     return;
 }
 ```
+- The entry point can also be defined as `main: void() { ... }`
 - If present, `main()` should be the last global definition in the file. \
 \#Clarification: with _"if present"_ we mean that in specific cases like `.rh` header files you don't *need* a `main()` entry point
 
