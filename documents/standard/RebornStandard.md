@@ -27,7 +27,7 @@ clarity and consistency between programs written in Reborn (_A.K.A. Fulfill the 
 Formatting **rules** and Styling _recommendations_:
 - **One space between `let` and identifier.**
 - _One space between identifier and `:=`._
-- _One space between `:=` and the expression._
+- _One space between `:=` and the expression._ \
 And once again, just to clarify: these rules **do not mean** that you cannot do something like `let var:=10;`
 
 ### Regarding section R5:
