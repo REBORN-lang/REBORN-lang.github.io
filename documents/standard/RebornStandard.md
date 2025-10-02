@@ -1,5 +1,5 @@
 # REBORN Standard (RS)
-### Revision 25006
+### Revision 25007
 
 ## Purpose
 The **REBORN Standard** exists to define how **REBORN** source code **must** be written and interpreted. \
@@ -7,7 +7,6 @@ It enforces style, grammar, and structural rules that all **REBORN** programs mu
 This standard exists to ensure consistency and eliminate ambiguity in compiler implementation and user code.
 
 # R1. General Syntax Rules
-
 - Semicolon (`;`) is required to terminate any expression or instruction.
 - Curly braces (`{}`) must be used for all blocks, even one-liners.
 - One statement per line is _not mandatory but recommended_.
@@ -15,6 +14,38 @@ This standard exists to ensure consistency and eliminate ambiguity in compiler i
 - Function bodies must always end in a `return`, with the only exception being `void`-types. (_\*Note3_)
 - **No object-oriented syntax is allowed.** (_\*NoteOOP_)
 - 4 characters tab indentation is _recommended_ for writing **REBORN** programs.
+
+# R1.1 General style recommendations and formatting rules
+This section is mixed with:
+- Formatting **Rules**: If not met, the compiler **must** throw an error.
+- Styling _recommendations_: If not met, the **Reborn Standard** purists may call your code ugly, but it will work nonetheless.
+
+Abiding to **all** of this rules is **highly** recommended because it provides \
+clarity and consistency between programs written in Reborn (_A.K.A. Fulfill the purpose of the RS_).
+
+### Regarding section R4.1:
+Formatting **rules** and Styling _recommendations_:
+- **One space between `let` and identifier.**
+- _One space between identifier and `:=`._
+- _One space between `:=` and the expression._
+And once again, just to clarify: these rules **do not mean** that you cannot do something like `let var:=10;`
+
+### Regarding section R5:
+Formatting **rules** and Styling _recommendations_:
+- **Functions must be defined with a block** (`let identifier: type = (parameter: type) { ... }`).
+- **Functions must be declared without a block** (`let identifier: type = (parameter: type);`). \
+  A.K.A. Forward declaration
+- **Overloading is allowed by type.** <!-- More of a feature than a rule though -->
+
+### Regarding section R5.1:
+Formatting **rules** and Styling _recommendations_:
+- _Function name followed immediately by `(`_ (_no space before `(`_).
+- **Parameters explicited with: `: type` or if inferred with: `:=`**
+- _No space before `:`_
+- _One space follows `:` before the `type`_
+- _Parameters separated by `, `_ (_`,` then a single space_)
+- **No semicolon after the closing `}` of a function definition (functions are blocks).**
+- **Function body must end with a `return` statement (unless the function is explicitly declared as `void`).**
 
 # R2. File Structure & Entry Point
 - All `.re` source files must contain at most one `main()` function (_entry point_).
@@ -25,7 +56,8 @@ main() {
     return;
 }
 ```
-- If present, `main()` should be the last global definition in the file.
+- If present, `main()` should be the last global definition in the file. \
+\#Clarification: with _"if present"_ we mean that in specific cases like `.rh` header files you don't *need* a `main()` entry point
 
 # R3. Keywords
 - Reserved keywords (See **Sk.** in the **REBORN** Design) must not be used as identifiers.
@@ -44,23 +76,13 @@ A variable declaration must follow exactly one of these forms:
   ```
   let identifier := expression;
   ```
-  Example: `let number := 10;` \
-  \
-  Formatting rules:
-      - One space required between `let` and identifier.
-      - One space required between identifier and `:=`.
-      - One space required between `:=` and the expression.
-
+  Example: `let number := 10;`
+  
 - Explicitly typed declaration
   ```
   let identifier: type = expression;
   ```
-  Example: `let number: int = 10;` \
-  \
-  Formatting rules:
-      - One space required between `let` and identifier.
-      - Exactly one space **may** follow the colon before the type (recommended).
-      - Single space required around the `=` (i.e. `type = expression`).
+  Example: `let number: int = 10;`
   
 - Constant variable declaration
   ```
@@ -76,10 +98,10 @@ A variable declaration must follow exactly one of these forms:
   ```
 
 - Examples of invalid declarations (must be rejected by compiler):
-```
-let z = 99;         // missing ':=' or ': type ='
-let b: = 6;         // missing type
-```
+  ```
+  let z = 99;         // missing ':=' or ': type ='
+  let b: = 6;         // missing type
+  ```
 
 # R5. Functions
 - Functions must be defined with a block.
@@ -102,24 +124,16 @@ let fname: type (param1: type, param2: type) {
     return <expr>;
 }
 ```
-- Formatting rules (must be enforced)
-    - Function name followed immediately by `(` (no space before `(`).
-    - Parameters formatted as: `identifier: type` or if inferred as: `identifier`
-    - No space before `:` (**OPTIONAL, MORE OF A STYLING RULE**)
-    - One space may follow `:` before the `type` (recommended)
-    - Parameters separated by `, ` (comma then single space)
-    - No semicolon after the closing `}` of a function definition (functions are blocks).
-    - Function body must end with a `return` statement (unless the function is explicitly declared as `void`).
 
 - Examples of invalid declarations (must be rejected):
 ```
-let f(a: int) { ... }        // missing ':=' before '('
+let f(a: int) { ... }    // missing ':=' before '('
 ```
 <!-- TODO: ADD MORE EXAMPLES -->
 
 
 # R6. Conditionals and Loops
-- Conditional blocks (`if`, `elif`, `else`) must always use braces.
+- Conditional blocks (`if`, `elif`, `else`) must always use braces (_But parenless syntax is allowed: **R6.1**_).
 - `elif` must directly follow an `if` or another `elif`.
 - `else` must be the final branch for a conditional group.
 - It is recommended to group related branches into a single structure:
@@ -132,7 +146,7 @@ if (condition) {
     ...
 }
 ```
-`while` and `for` loops follow classic C structure:
+- `while` and `for` loops follow classic C structure:
 ```
 while (condition) { ... }
 for (init; condition; post) { ... }
@@ -145,14 +159,16 @@ But because of REBORN's fixation with being dynamic you can also write \
 parenless conditional blocks that can be cleaner and faster to write.
 Example:
 ```
-if condition {
-    ...
-} elif condition {
-    ...
-} else {
-    ...
-}
+if condition { ... }
+elif condition { ... }
+else { ... }
 ```
+This also applies to loops:
+```
+while condition { ... }
+for init; condition; post { ... }
+```
+<!-- Note: using parenless syntax in `for` loops is ugly. -->
 
 # R7. Header Imports
 - Standard headers must use:
@@ -204,4 +220,5 @@ Example: `/* Comment // Comment */` -> Is just one comment
 - A **REBORN** compiler should emit clear warning for any violation of the **RS** styling rules.
 
 # Appendix A
-- Every program created by the REBORN-lang organization and/or its GitHub account **must** comply with the latest **RS**
+Every program created by the REBORN-lang organization and/or its GitHub account **must** comply with the latest **RS** \
+enabling users to quote that piece of code and use _that_ as a reference on how to write REBORN code.
