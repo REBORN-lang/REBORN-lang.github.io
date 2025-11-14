@@ -1,6 +1,6 @@
 # REBORN-lang website
-Contains files for the org's site.
+Contains files for the organization's website.
 
 &nbsp;
-##### Maintainers
+### Maintainers
 - jstmax! : <jstmaxlol@disroot.org> & <maxwasmailed@proton.me>
