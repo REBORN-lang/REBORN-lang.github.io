@@ -1,20 +1,24 @@
-        body {
-            font-family: Roboto;
-            background-color: #271f1f;
-        }
-        nav {
-            background-color: #a92020;
-        }
-        .header, b, a {
-            color: #ff4040;
-        }
-        h1, h2, h3, h4, h5, h6, p {
-            color: #f1f1f1;
-        }
-        .link {
-            text-decoration: underline white;
-        }
-        p {
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
+/* Import Roboto and JetBrains Mono */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: "Roboto";
+    background-color: #271f1f;
+}
+nav {
+    background-color: #a92020;
+}
+.header, b, a {
+    color: #ff4040;
+}
+h1, h2, h3, h4, h5, h6, p {
+    color: #f1f1f1;
+}
+.link {
+    text-decoration: underline dotted white; 
+}
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
