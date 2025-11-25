@@ -3,4 +3,4 @@ Contains files for the organization's website.
 
 &nbsp;
 ### Maintainers
-- jstmax! : <jstmaxlol@disroot.org> & <maxwasmailed@proton.me>
+- czjstmax : <jstmaxlol@disroot.org>, <maxwasmailed@proton.me>
