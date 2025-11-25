@@ -212,7 +212,7 @@ extern "Cpp" {
     // C++ code
 }
 ```
-Note: The first iteration of the **RSL** reimplements most of the [C Standard Library]() plus some of C++'s standard library, **excluding the STL**.
+Note: The first iteration of the **RSL** reimplements most of the [C Standard Library](https://en.cppreference.com/w/c/header.html) plus some of C++'s standard library, **excluding the STL**.
 
 # R9. Compiler-Time Tools
 - `sizeof(expr)` returns size in bytes of a type or value.
