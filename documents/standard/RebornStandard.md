@@ -52,7 +52,7 @@ Formatting **rules** and Styling _recommendations_:
 - **Function body must have at least one `return` statement (unless the function is explicitly declared as `void`).**
 
 # R2. File Structure & Entry Point
-- All `.re` source files must contain at most one `main()` function (_entry point_).
+- All `.rn` source files must contain at most one `main()` function (_entry point_).
 - The entry point, _per standard_ named `main()` does **not require** the `let` keyword in its definition.
 - Entry point does not require a declared `return` type. \
 Example:
