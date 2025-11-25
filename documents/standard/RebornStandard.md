@@ -179,13 +179,13 @@ for init; condition; post { ... } // Not recommended in 'for' loops because the 
 # R7. Header Imports
 - Standard headers must use:
 ```
-import RSL.rh;
+import rsl;
 ```
 - A single `import` statement must be used for all imported header files:
 ```
 import {
     rsl.rh,
-    y.rh
+    example.rh
 }
 ```
 - User-defined headers may use relative paths:
@@ -234,10 +234,25 @@ Example: `/* Comment // Comment */` -> Is just one comment
   - Or more broadly if any of the **RULES** dictated by the **RS** were violated
 - A **REBORN** compiler should emit clear warning for any violation of the **RS** styling rules.
 
+# R12. Keywords
+Here is every reserved keyword in Reborn.
+### General
+- `import`, `return`
+- `//`, `/*`, `*/`, `;`, `,`, `'`, `"`
+- ### Declarations, definitions and assignments
+- `let`, `int`, `char`, `bool`, `string`, `void`
+- `const`, `unsigned`, `extern`
+- `:`, `=`, `:=`, `()`, `{}`, `[]`
+### Conditionals
+- `if`, `elif`, `else`, `for`, `while`
+- `&&`, `||`, `&`, `|`
+### Operators
+- `++`, `--`, `>`, `<`, `>=`, `<=`, `==`, `!=`
+
 # Appendix A
 Every program created by the REBORN-lang organization and/or its GitHub account, that is written in Reborn, must comply with the latest available revision of the **RS**;
 Thus enabling users to quote said code and use _that_ as a reference on how to write standard-compliant REBORN code.
 
 # Appendix B
-REBORN source files use the `.rn` extension.
+REBORN source files use the `.rn` extension. \
 REBORN Header files use the `.rh` extension.
