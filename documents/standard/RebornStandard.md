@@ -237,3 +237,7 @@ Example: `/* Comment // Comment */` -> Is just one comment
 # Appendix A
 Every program created by the REBORN-lang organization and/or its GitHub account, that is written in Reborn, must comply with the latest available revision of the **RS**;
 Thus enabling users to quote said code and use _that_ as a reference on how to write standard-compliant REBORN code.
+
+# Appendix B
+REBORN source files use the `.rn` extension.
+REBORN Header files use the `.rh` extension.
