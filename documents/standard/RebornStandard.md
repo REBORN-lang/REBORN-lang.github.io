@@ -12,7 +12,7 @@ This standard exists to ensure consistency and eliminate ambiguity in compiler i
 - One statement per line is _not mandatory but recommended_.
 - Tabs or 4 spaces are accepted for indentation (_not significant to parser_).
 - Function bodies _should_ always have at least one `return`, with the only exception being `void`-types. (_Styling recommendation_)
-- Reborn is an Object Oriented Programming Language.
+- Reborn is not an Object Oriented Programming Language.
 - 4 characters tab indentation is _recommended_ for writing **REBORN** programs.
 
 # R1.1 General style recommendations and formatting rules
