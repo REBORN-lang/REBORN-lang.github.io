@@ -1,5 +1,5 @@
 # REBORN Standard (RS)
-### Revision 25008
+### Revision 25009
 
 ## Purpose
 The **REBORN Standard** exists to define how **REBORN** source code **must** be written and interpreted. \
@@ -52,7 +52,7 @@ Formatting **rules** and Styling _recommendations_:
 - **Function body must have at least one `return` statement (unless the function is explicitly declared as `void`).**
 
 # R2. File Structure & Entry Point
-- All `.rn` source files must contain at most one `main()` function (_entry point_).
+- All Reborn source files must contain at most one `main()` function (_entry point_).
 - The entry point, _per standard_ named `main()` does **not require** the `let` keyword in its definition.
 - Entry point does not require a declared `return` type. \
 Example:
@@ -64,7 +64,7 @@ main := () {
 ```
 - The entry point can also be defined as `main: void() { ... }`
 - If present, `main()` should be the last global definition in the file. \
-\#Clarification: with _"if present"_ we mean that in specific cases like `.rh` header files you don't _need_ a `main()` entry point.
+\#Clarification: with _"if present"_ we mean that in specific instances like header files you don't _need_ an entry point.
 
 # R3. Keywords
 - Reserved keywords (__See all Reborn keywords at the bottom of this document_) **cannot** be used as identifiers.
@@ -73,15 +73,17 @@ main := () {
 
 # R4. Data Types & Type Inference
 - All variables must be declared before use.
-- Supported types: `int`, `float`, `char`, `bool`, `string`.
+- Supported types: `int`, `float`, `char`, `bool`, `string`, `void`
 - To declare a variable as constant add the `const` keyword at the beginning of the declaration.
 Below there are examples on variable declaration and its syntax.
 
 ## R4.1 Variable Declaration Syntax
 A variable declaration must follow exactly one of these forms:
-- Type inferred declaration
+- Untyped declaration
   ```
   let identifier := expression;
+  // NOTE: The wording is 'untyped' but what this
+  // resolves to is actually 'type inferred'
   ```
   Example: `let number := 10;`
   
@@ -126,7 +128,7 @@ let fname := (param1: type, param2: type) {
 
 - Explicit return type
 ```
-let fname: type (param1: type, param2: type) {
+let fname: type = (param1: type, param2: type) {
     <code>
     return <expr>;
 }
@@ -223,7 +225,7 @@ Note: The first iteration of the **RSL** reimplements most of the [C Standard Li
 - Single-line: `// this is a comment`
 - Multi-line: `/* this is a longer comment */`
 - Nested comments are just comments.
-Example: `/* Comment // Comment */` -> Is just one comment
+Example: `/* Comment // Comment */` -> Is just one comment, _obviously_
 
 # R11. Error Expectations
 - A **REBORN** compiler should emit clear errors if:
@@ -247,7 +249,8 @@ Here is every reserved keyword in Reborn.
 - `if`, `elif`, `else`, `for`, `while`
 - `&&`, `||`, `&`, `|`
 ### Operators
-- `++`, `--`, `>`, `<`, `>=`, `<=`, `==`, `!=`
+- `=:`/`==`
+- `++`, `--`, `>`, `<`, `>=`, `<=`, `!=`
 
 # Appendix A
 Every program created by the REBORN-lang organization and/or its GitHub account, that is written in Reborn, must comply with the latest available revision of the **RS**;
