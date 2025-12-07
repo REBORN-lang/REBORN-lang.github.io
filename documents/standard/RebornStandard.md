@@ -1,5 +1,5 @@
 # REBORN Standard (RS)
-### Revision 25009
+### Revision 25010
 
 ## Purpose
 The **REBORN Standard** exists to define how **REBORN** source code **must** be written and interpreted. \
@@ -221,13 +221,19 @@ Note: The first iteration of the **RSL** reimplements most of the [C Standard Li
 - `typeof(expr)` returns a `string` representation of the value's type.
 - **These functions are not runtime functions; they are evaluated by the compiler**.
 
-# R10. Comments
+# R10. Pointers
+- To declare a pointer: \
+`let *p := &x;`: The `&` operator returns the address in memory of something
+- To dereference a pointer, we can utilize the `@` operator \
+`printf("%_", @p); // With %_ as its format, printf() will infer the format type`
+
+# R11. Comments
 - Single-line: `// this is a comment`
 - Multi-line: `/* this is a longer comment */`
 - Nested comments are just comments.
 Example: `/* Comment // Comment */` -> Is just one comment, _obviously_
 
-# R11. Error Expectations
+# R12. Error Expectations
 - A **REBORN** compiler should emit clear errors if:
   - A required semicolon is missing
   - An `array` is declared without size or initializer
@@ -236,7 +242,7 @@ Example: `/* Comment // Comment */` -> Is just one comment, _obviously_
   - Or more broadly if any of the **RULES** dictated by the **RS** were violated
 - A **REBORN** compiler should emit clear warning for any violation of the **RS** styling rules.
 
-# R12. Keywords
+# R13. Keywords
 Here is every reserved keyword in Reborn.
 ### General
 - `import`, `return`
@@ -251,6 +257,7 @@ Here is every reserved keyword in Reborn.
 ### Operators
 - `=:`/`==`
 - `++`, `--`, `>`, `<`, `>=`, `<=`, `!=`
+- `&`, `@`
 
 # Appendix A
 Every program created by the REBORN-lang organization and/or its GitHub account, that is written in Reborn, must comply with the latest available revision of the **RS**;
