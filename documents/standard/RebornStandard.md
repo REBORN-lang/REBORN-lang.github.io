@@ -257,7 +257,7 @@ Here is every reserved keyword in Reborn.
 ### Operators
 - `=:`/`==`
 - `++`, `--`, `>`, `<`, `>=`, `<=`, `!=`
-- `&`, `@`
+- `*`, `&`, `@`
 
 # Appendix A
 Every program created by the REBORN-lang organization and/or its GitHub account, that is written in Reborn, must comply with the latest available revision of the **RS**;
