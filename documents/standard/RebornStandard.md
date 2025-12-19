@@ -420,11 +420,11 @@ The data structures available in *Reborn* are:
   ```
   // Same as with structs, you can either specify the identifier before or after the block.
   let enum Lightswitch {
-      let PoweredOn,          // Implicit
+      let PoweredOn;          // Implicit
       let PoweredOff := 0;    // Explicit
   };
   
-  // Then we can create a symbol with this enum type we just defined
+  // Then we can create a variable with this enum type we just defined
   let Switch: Lightswitch = PoweredOn;
   ```
 - `union`: A type more than a data structure, an `union` is a chunk of memory that may be
