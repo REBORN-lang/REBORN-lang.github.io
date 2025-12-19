@@ -1,11 +1,11 @@
-# REBORN Standard (RS)
+# Reborn Standard (RS)
 
-### Revision 25010
+### Revision 25011
 
 ## Purpose
 
-The **REBORN Standard** exists to define how **REBORN** source code **must** be written and interpreted. \
-It enforces style, grammar, and structural rules that all **REBORN** programs must follow. \
+The **Reborn Standard** exists to define how **Reborn** source code **must** be written and interpreted. \
+It enforces style, grammar, and structural rules that all **Reborn** programs must follow. \
 This standard exists to ensure consistency and eliminate ambiguity in compiler implementation and user code.
 
 ---
@@ -17,8 +17,9 @@ This standard exists to ensure consistency and eliminate ambiguity in compiler i
 - One statement per line is _not mandatory but recommended_.
 - Tabs or 4 spaces are accepted for indentation (_not significant to parser_).
 - Function bodies _should_ always have at least one `return`, with the only exception being `void`-types. (_Styling recommendation_)
-- Reborn is not an Object Oriented Programming Language.
-- 4 characters tab indentation is _recommended_ for writing **REBORN** programs.
+- Reborn is not an Object Oriented Programming Language and it does not plan to support OO features
+  in the foreseeable future.
+- 4 space indentation is _recommended_ for writing **Reborn** programs.
 
 ---
 
@@ -325,19 +326,78 @@ Note: The first iteration of the **RSL** reimplements most of the [C Standard Li
 
 ---
 
-# R12. Error Expectations
+# R12. Data structures
+The data structures available in *Reborn* are:
+- `struct`: The simplest, most *C*-like data structure there is. It is to be noted that a `struct`
+  in Reborn is much more similar to a `typedef struct` in C than a plain `struct`. \
+  Example:
+  ```
+  let struct {
+      type MemberIdentifier1;
+      type MemberIdentifier2;
+      ...
+  } StructIdentifier;
+  ```
+  It can also be written as
+  ```
+  let struct StructIdentifier {
+      ...
+  };
+  ```
+  As showcased in the examples above, a field inside a `struct` is called a **member** and it \
+  is composed of a *type* and an *identifier*. \
+  A value (generically, a *symbol* or a *variable*) of which type is a `struct` is called a *struct
+  instance* \
+  Example:
+  ```
+  let struct Expression {
+      // We are going to use this struct to abstract a simple mathematical expression (number,
+      // operator, number)
+      int FirstNum;
+      char Operator;
+      int SecondNum;
+  }
+  
+  // Now we create, or 'initialise' an instance of this Expression
+  let expr: Expression;
+  // And now we can assign values to the members of this instance
+  expr.FirstNum = 4;
+  expr.Operator = '+';
+  expr.SecondNum = 4;
+  ```
+- `enum`: An `enum`eration type is a user-defined type that consists of a finite set of named
+  constant values. \
+  These *named constant values* are also called *member*s, for familiarity. \
+  To be consistent on mapping *Reborn* to *C*, the underlying type for `enum`s is an `int`eger type. \
+  An `enum` has *implicit values* and *explicit values*, the *implicit* ones are automatically
+  assigned by the compiler whilst the *explicit* ones are specified by the programmer. \
+  Example:
+  ```
+  // Same as with structs, you can either specify the identifier before or after the block.
+  let enum Lightswitch {
+      PoweredOn,         // Implicit
+      PoweredOff = 0;    // Explicit
+  };
+  
+  // Then we can create a symbol with this enum type we just defined
+  let Switch: Lightswitch = PoweredOn;
+  ```
 
-- A **REBORN** compiler should emit clear errors if:
+---
+
+# R13. Error Expectations
+
+- A **Reborn** compiler should emit clear errors if:
   - A required semicolon is missing
   - An `array` is declared without size or initializer
   - A non-`void` function is missing its final `return`
   - `elif` or `else` is used without a prior `if`
   - Or more broadly if any of the **RULES** dictated by the **RS** were violated
-- A **REBORN** compiler should emit clear warning for any violation of the **RS** styling rules.
+- A **Reborn** compiler should emit clear warning for any violation of the **RS** styling rules.
 
 ---
 
-# R13. Keywords
+# R14. Keywords
 
 Here is every reserved keyword in Reborn.
 
@@ -369,6 +429,10 @@ Here is every reserved keyword in Reborn.
 
 - `*`, `&`, `@`
 
+- `.`, `->`
+
+<!-- Add bitwise operations + their operators -->
+
 ---
 
 # Appendix A
@@ -380,8 +444,8 @@ Thus enabling users to quote said code and use it as a reference on how to write
 
 # Appendix B
 
-REBORN source files use the `.rn` extension. \
-REBORN Header files use the `.rh` extension.
+Reborn source files use the `.rn` extension. \
+Reborn Header files use the `.rh` extension.
 
 ---
 
