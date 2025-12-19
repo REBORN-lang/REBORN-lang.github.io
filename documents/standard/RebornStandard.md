@@ -1,6 +1,6 @@
 # Reborn Standard (RS)
 
-### Revision 25011
+### Revision 25012
 
 ## Purpose
 
@@ -81,7 +81,7 @@ Formatting **rules** and Styling _recommendations_:
   ```
   // Implicitly of type void
   main := () {
-    return;
+      return;
   }
   ```
 
@@ -111,7 +111,11 @@ Formatting **rules** and Styling _recommendations_:
 
 ## R4.1 Variable Declaration Syntax
 
-A variable declaration must follow exactly one of these forms:
+The general syntax for a variable declaration is:
+```
+let [attributes] identifier [:= | : type =] [value | expression];
+```
+Below there are examples of valid forms of variable declaration.
 
 - Untyped declaration
   
@@ -134,26 +138,26 @@ A variable declaration must follow exactly one of these forms:
 - Constant variable declaration
   
   ```
-  const let identifier := expression;
+  let const identifier := expression;
   ```
   
   or..
   
   ```
-  const let identifier: type = expression;
+  let const identifier: type = expression;
   ```
 
 - Array variable declaration
   
   ```
-  let identifier[]: type = {expression1, expression2};
+  let identifier[]: type = {expression1, expression2, ...expression<n>};
   ```
 
 - Examples of invalid declarations (must be rejected by compiler):
   
   ```
   let x = 99;         // missing ':=' or ': type ='
-  y = 99;             // assignment, not a declaration.
+  y = 99;             // this is an assignment, not a declaration.
   ```
 
 ---
@@ -171,18 +175,24 @@ A variable declaration must follow exactly one of these forms:
 - Inferred return type
   
   ```
-  let fname := (param1: type, param2: type) {
-    <code>
-    return <expr>;
+  let <attributes> fname := (param1: type, param2: type, ...param<n>: type) {
+      <code>
+      return <expr>;
   }
   ```
 
 - Explicit return type
   
   ```
-  let fname: type = (param1: type, param2: type) {
-    <code>
-    return <expr>;
+  let <attributes> fname: type = (param1: type, param2: type, ...param<n>: type) {
+      <code>
+      return <expr>;
+  }
+  ```
+- Example of attributes
+  ```
+  let static inline func: int = (x: int) {
+      return x;
   }
   ```
 
@@ -190,7 +200,7 @@ A variable declaration must follow exactly one of these forms:
   
   ```
   let f(a: int) { ... }    // missing ':=' before '('
-  let f := (a, b) { ... }  // missing parameter type
+  let f := (a, b) { ... }  // missing parameter type <!-- This may become possible eventually :) -->
   ```
 
 ---
@@ -221,6 +231,14 @@ A variable declaration must follow exactly one of these forms:
   while (condition) { ... }
   for (init; condition; post) { ... }
   ```
+- `for` loop with range:
+  ```
+  for:n {
+      ...
+  }
+  ```
+  With `n` being an integer positive number. \
+  This is syntactic sugar that will resolve to a normal C `for (int i = 0; i < n; i++)`.
 
 ---
 
@@ -255,7 +273,7 @@ for init; condition; post { ... } // Not recommended in 'for' loops because the 
   import rsl;
   ```
 
-- A single `import` statement must be used for all imported header files:
+- A single `import` statement can be used for all imported header files:   *\*recommended*
   
   ```
   import {
@@ -275,6 +293,34 @@ for init; condition; post { ... } // Not recommended in 'for' loops because the 
 
 ---
 
+## R7.1 Import optimization
+An important optimization technique that is standard-enforced (_**mostly recommended, not a "must"**_)
+is to utilize what is called *"import selectivity"*, it is a feature of Reborn that allows for the \
+developer to only import specific functions and symbols from a given header file, this allows for \
+much tinier code and faster compilation times, as the compiler does not need to import the entire \
+file if, for example, the programmer only uses a couple of functions. \
+Example:
+```
+from rsl import { printf(), getline() }
+
+main := () {
+    //
+}
+```
+This is a programmer choice and it is not enforced by the **RS**. \
+Compiler implementations of Reborn may also choose to implement the _**non-standard**_ feature \
+**'inclusive import selectivity'**, what this means is that, if the programmer does:
+```
+import rsl;
+```
+The compiler will automatically check for which functions are being used and only import those \
+functions, this is called *inclusive* because it does not require the programmer to explicitly \
+request specific functions from the header file. \
+This feature is _**non-standard**_ and it is up to the compiler implementation to decide whether to \
+implement it or not, for example, the <u>[**CReborn**](https://github.com/reborn-lang/creborn)</u> implementation does not include this feature.
+
+---
+
 # R8. Interop
 
 - Foreign functions must be declared using extern:
@@ -286,18 +332,16 @@ for init; condition; post { ... } // Not recommended in 'for' loops because the 
 - And as you can see they are declared with a C-style function declaration: \
   `extern int write()` as opposed to `extern let write: int()`
 
-You can include C or C++ snippets using:
+You can include C snippets using:
 
 ```
 extern "C" {
     // C code
 }
-extern "Cpp" {
-    // C++ code
-}
 ```
 
-Note: The first iteration of the **RSL** reimplements most of the [C Standard Library](https://en.cppreference.com/w/c/header.html) plus some of C++'s standard library, **excluding the STL**.
+Note: The first iteration of the **RSL** reimplements most of the <u>[C Standard Library](https://en.cppreference.com/w/c/header.html)</u>.
+
 ---
 
 # R9. Compiler-Time Tools
@@ -353,9 +397,9 @@ The data structures available in *Reborn* are:
   let struct Expression {
       // We are going to use this struct to abstract a simple mathematical expression (number,
       // operator, number)
-      int FirstNum;
-      char Operator;
-      int SecondNum;
+      let FirstNum: int;
+      let Operator: char;
+      let SecondNum: int;
   }
   
   // Now we create, or 'initialise' an instance of this Expression
@@ -375,17 +419,59 @@ The data structures available in *Reborn* are:
   ```
   // Same as with structs, you can either specify the identifier before or after the block.
   let enum Lightswitch {
-      PoweredOn,         // Implicit
-      PoweredOff = 0;    // Explicit
+      let PoweredOn,          // Implicit
+      let PoweredOff := 0;    // Explicit
   };
   
   // Then we can create a symbol with this enum type we just defined
   let Switch: Lightswitch = PoweredOn;
   ```
+- `union`: A type more than a data structure, an `union` is a chunk of memory that may be
+  interpreted with more than one type, **one at a time**. \
+  Example:
+  ```
+  let union Value {
+      let i: int;
+      let f: float;
+      let s: string;
+  };
+  ```
+  As the other data structure types, an `union` is composed of *members*, with each of its *members* \
+  having a name (*identifier*) and a *type*, something that the `union` has exclusively to the other \
+  two data structure types is the *union maximum size* which is an integer number given by the \
+  biggest data type in bytes, throughout all of the `union`'s *members*. \
+  After creating an `union` we can create an *instance* of it, just like the previous data
+  structures. \
+  Example:
+  ```
+  let val: Value;
+  val.i = 8; // val is now an int
+  // If we use another member of this instance's union type (i.e. 'val.f' or 'val.s')
+  // we will have effectively changed the type of val, if we use the wrong type on the printf()
+  // format or any other function that requires an explicit type after changing it (proactively)
+  // we will cause UB.
+  ```
+  **Note:** Reading a union member different from the last written one is \
+  permitted but may result in undefined or implementation-defined behavior.
 
 ---
 
-# R13. Error Expectations
+# R13. Type casting
+Type casting is a way to tell the compiler to represent the given data with a different type. \
+Obviously not every type can be represented as each other, for example you can't represent a `float` \
+with an `int` because the number will have to be rounded up to a valid integer number, this doesn't \
+mean that a Reborn compiler can't be able to do that, but utilizing a dedicated function to convert \
+said data's type is safer and does not risk data losses or similar issues. \
+Example:
+```
+let letter: char = 'a';
+let letterCasted: int = letter-->int; // Operator -> ≠ Operator -->
+printf("%_\n", letterCasted); // Will output ASCII decimal code of said character, in our case 97 ('a')
+```
+
+---
+
+# R14. Error Expectations
 
 - A **Reborn** compiler should emit clear errors if:
   - A required semicolon is missing
@@ -397,13 +483,13 @@ The data structures available in *Reborn* are:
 
 ---
 
-# R14. Keywords
+# R15. Keywords
 
 Here is every reserved keyword in Reborn.
 
 ### General
 
-- `import`, `return`
+- `import`, `return`, `from`
 
 - `//`, `/*`, `*/`, `;`, `,`, `'`, `"`
 
@@ -431,6 +517,8 @@ Here is every reserved keyword in Reborn.
 
 - `.`, `->`
 
+- `-->`
+
 <!-- Add bitwise operations + their operators -->
 
 ---
@@ -449,3 +537,16 @@ Reborn Header files use the `.rh` extension.
 
 ---
 
+# Appendix C
+
+The only recognized compiler implementations of **Reborn** are specified here:
+- <u>[CReborn](https://github.com/reborn-lang/creborn)</u>: Development lead by
+  <u>[czjstmax](https://github.com/jstmaxlol)</u>, founder and main maintainer for REBORN-lang.
+
+---
+
+# Appendix D
+
+When the word '**symbol**' is used, any *function*, *variable*, etc, etc.. is meant.
+
+---
