@@ -326,11 +326,12 @@ implement it or not, for example, the <u>[**CReborn**](https://github.com/reborn
 - Foreign functions must be declared using extern:
   
   ```
-  extern int write(int fd, string text, int len);
+  extern "C" int write(int fd, string text, int len);
   ```
 
 - And as you can see they are declared with a C-style function declaration: \
-  `extern int write()` as opposed to `extern let write: int()`
+  `int write()` as opposed to `let write: int = ()` \
+  That is because we are effectively declaring them in a C block.
 
 You can include C snippets using:
 
