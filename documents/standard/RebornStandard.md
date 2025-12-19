@@ -233,7 +233,7 @@ Below there are examples of valid forms of variable declaration.
   ```
 - `for` loop with range:
   ```
-  for:n {
+  for::n {
       ...
   }
   ```
@@ -517,7 +517,7 @@ Here is every reserved keyword in Reborn.
 
 - `.`, `->`
 
-- `-->`
+- `-->`, `::`
 
 <!-- Add bitwise operations + their operators -->
 
