@@ -238,7 +238,7 @@ Below there are examples of valid forms of variable declaration.
   }
   ```
   With `n` being an integer positive number. \
-  This is syntactic sugar that will resolve to a normal C `for (int i = 0; i < n; i++)`.
+  This is syntactic sugar that will resolve to a normal C `for (int i = 1; i < n; i++)`.
 
 ---
 
