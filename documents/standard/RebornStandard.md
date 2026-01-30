@@ -498,7 +498,7 @@ Here is every reserved keyword in Reborn.
 
 - `let`, `int`, `char`, `bool`, `string`, `void`
 
-- `const`, `unsigned`, `extern`
+- `const`, `unsigned`, `extern`, `static`, `inline`
 
 - `:`, `=`, `:=`, `()`, `{}`, `[]`
   
