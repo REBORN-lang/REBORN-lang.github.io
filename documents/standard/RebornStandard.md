@@ -1,6 +1,6 @@
 # Reborn Standard (RS)
 
-### Revision 25012
+### Revision 26013
 
 ## Purpose
 
@@ -513,6 +513,7 @@ Here is every reserved keyword in Reborn.
 - `=:`/`==`
 
 - `++`, `--`, `>`, `<`, `>=`, `<=`, `!=`
+- `!>` (resolves to `<`), `!<` (resolves to `>`)
 
 - `*`, `&`, `@`
 
